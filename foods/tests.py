@@ -3,9 +3,9 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 from rest_framework import status
 from django.conf import settings
-import drf_api.settings
-settings.configure(default_settings=drf_api.settings)
-django.setup()
+# import drf_api.settings
+# settings.configure(default_settings=drf_api.settings)
+# django.setup()
 from rest_framework.test import APITestCase
 from .models import Food
 
@@ -55,7 +55,8 @@ class FoodTests(APITestCase):
 
     def test_create_food(self):
         url = reverse("food_list")
-        data = {"owner": 1, "name": "spoon", "description": "good for cereal and soup"}
+        print(url)
+        data = {"owner": "dgnichols22", "name": "spoon", "description": "good for cereal and soup",}
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         foods = Food.objects.all()
@@ -65,10 +66,9 @@ class FoodTests(APITestCase):
     def test_update_food(self):
         url = reverse("food_detail", args=(1,))
         data = {
-            "owner": 1,
-            "name": "rake",
-            "description": "pole with a crossbar toothed like a comb.",
-        }
+            "owner": "dgnichols22",
+            "name": "spoon",
+            "description": "good for cereal and soup",}
         response = self.client.put(url, data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         food = Food.objects.get(id=1)
