@@ -55,8 +55,7 @@ class FoodTests(APITestCase):
 
     def test_create_food(self):
         url = reverse("food_list")
-        print(url)
-        data = {"owner": "dgnichols22", "name": "spoon", "description": "good for cereal and soup",}
+        data = {"owner": 1, "name": "spoon", "description": "good for cereal and soup"}
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         foods = Food.objects.all()
@@ -66,9 +65,9 @@ class FoodTests(APITestCase):
     def test_update_food(self):
         url = reverse("food_detail", args=(1,))
         data = {
-            "owner": "dgnichols22",
+            "owner": 1,
             "name": "spoon",
-            "description": "good for cereal and soup",}
+            "description": "good for cereal and soup"}
         response = self.client.put(url, data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         food = Food.objects.get(id=1)
